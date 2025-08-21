@@ -3,3 +3,7 @@
 
 #include "GameData.h"
 
+FPrimaryAssetId UGameData::GetPrimaryAssetId() const
+{
+	return FPrimaryAssetId("GameData", GetFName());
+}
