@@ -6,9 +6,15 @@
 #include "Engine/DataAsset.h"
 #include "GameData.generated.h"
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum class EQuestState : uint8
+{
+	Inactive UMETA(DisplayName = "Inactive"),
+	InProgress UMETA(DisplayName = "InProgress"),
+	Completed UMETA(DisplayName = "Completed"),
+	Abandoned UMETA(DisplayName = "Abandoned"),
+};
+
 UCLASS(Abstract, BlueprintType)
 class OTW_BABYPROJECT_API UGameData : public UPrimaryDataAsset
 {
