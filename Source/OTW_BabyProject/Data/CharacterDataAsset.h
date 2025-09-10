@@ -1,10 +1,6 @@
 #pragma once
 
-<<<<<<< Updated upstream
-class CharacterDataAsset
-{
-public:
-=======
+
 #include "CoreMinimal.h"
 #include "GameData.h"
 #include "CharacterDataAsset.generated.h"
@@ -21,7 +17,5 @@ public:
 	static const FPrimaryAssetType CharacterAssetType;
 	
 	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
-
->>>>>>> Stashed changes
 	
 };
