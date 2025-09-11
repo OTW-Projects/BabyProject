@@ -3,7 +3,7 @@
 
 #include "DialogDataAsset.h"
 
-TArray<FDialogLine> UDialogDataAsset::GetDialogLines() const
+TArray<FDialogueLine> UDialogDataAsset::GetDialogLines() const
 {
 	return DialogLines;
 }

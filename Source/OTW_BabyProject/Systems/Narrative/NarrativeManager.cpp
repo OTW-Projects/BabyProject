@@ -18,3 +18,40 @@ UDataAsset* UNarrativeManager::GetDialogData(int DialogDataID) const
 	return NULL;
 }
 
+void UNarrativeManager::NextDialogue()
+{
+	CurrentDialogueIndex++;
+	if (CurrentDialogueIndex >= CurrentScene->DialogLines.Num())
+	{
+		
+	}
+}
+
+void UNarrativeManager::ResetDialogueCount()
+{
+	CurrentDialogueIndex = 0;
+}
+
+void UNarrativeManager::LoadScene(USceneDataAsset* NewScene)
+{
+	if (NewScene != nullptr)
+	{
+		CurrentScene = NewScene;
+		ResetDialogueCount();
+
+		// if (OnSceneChanged.IsBound())
+		// {
+		// 	
+		// }
+	}
+}
+
+void UNarrativeManager::LoadNextScene()
+{
+}
+
+
+int32 UNarrativeManager::GetCurrentDialogueIndex() const
+{
+	return CurrentDialogueIndex;
+}
