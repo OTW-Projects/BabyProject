@@ -16,20 +16,22 @@ class OTW_BABYPROJECT_API UNarrativeManager : public UObject
 	
 public:
 
-	//DECLARE_MULTICAST_DELEGATE_OneParam()
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnDialogueChanged, const FDialogueLine& NewDialogueLine);
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnSceneChanged, USceneDataAsset* NewScene);
+
+	FOnDialogueChanged OnDialogueChanged;
+
+	FOnSceneChanged OnSceneChanged;
 	
 	void Initialize();
-
-	UDataAsset* GetSpecificData(int DataAssetID) const;
 	
-	UDataAsset* GetDialogData(int DialogDataID) const;
-
 	UFUNCTION(Blueprintable)
 	void LoadScene(USceneDataAsset* NewScene);
 
 	UFUNCTION(Blueprintable)
 	void LoadNextScene();
 
+	//UFUNCTION(BlueprintCallable)
 	void NextDialogue();
 	
 	void ResetDialogueCount();
@@ -39,8 +41,11 @@ private:
 
 	int32 CurrentDialogueIndex = 0;
 
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	USceneDataAsset* CurrentScene;
+
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FDialogueLine CurrentDialogue;
 
 public:
 	

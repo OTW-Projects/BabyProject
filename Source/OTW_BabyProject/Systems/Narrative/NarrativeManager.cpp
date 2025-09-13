@@ -5,26 +5,29 @@
 
 void UNarrativeManager::Initialize()
 {
-	throw std::logic_error("The method or operation is not implemented.");
-}
-
-UDataAsset* UNarrativeManager::GetSpecificData(int DataAssetID) const
-{
-	return NULL;
-}
-
-UDataAsset* UNarrativeManager::GetDialogData(int DialogDataID) const
-{
-	return NULL;
+	if (CurrentScene)
+	{
+		LoadScene(CurrentScene);
+		
+		CurrentDialogue = CurrentScene->DialogLines[CurrentDialogueIndex];
+	}
 }
 
 void UNarrativeManager::NextDialogue()
 {
 	CurrentDialogueIndex++;
+
+	if (OnDialogueChanged.IsBound())
+	{
+		OnDialogueChanged.Broadcast(CurrentScene->DialogLines[CurrentDialogueIndex]);
+	}
+	
 	if (CurrentDialogueIndex >= CurrentScene->DialogLines.Num())
 	{
-		
+	    LoadNextScene();
+		ResetDialogueCount();
 	}
+
 }
 
 void UNarrativeManager::ResetDialogueCount()
@@ -39,15 +42,16 @@ void UNarrativeManager::LoadScene(USceneDataAsset* NewScene)
 		CurrentScene = NewScene;
 		ResetDialogueCount();
 
-		// if (OnSceneChanged.IsBound())
-		// {
-		// 	
-		// }
+		if (OnSceneChanged.IsBound())
+		{
+			OnSceneChanged.Broadcast(CurrentScene->NextScene);
+		}
 	}
 }
 
 void UNarrativeManager::LoadNextScene()
 {
+	LoadScene(CurrentScene->NextScene);
 }
 
 

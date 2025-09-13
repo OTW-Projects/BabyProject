@@ -24,5 +24,5 @@ public:
 	TArray<FDialogueLine> DialogLines;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TSoftObjectPtr<USceneDataAsset> NextScene;
+	USceneDataAsset* NextScene;
 };
