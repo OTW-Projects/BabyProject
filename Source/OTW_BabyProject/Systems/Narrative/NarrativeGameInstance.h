@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class OTW_BABYPROJECT_API UNarrativeGameInstance : public UGameInstance
 {
 	GENERATED_BODY()

@@ -16,8 +16,8 @@ class OTW_BABYPROJECT_API UNarrativeManager : public UObject
 	
 public:
 
-	DECLARE_MULTICAST_DELEGATE_OneParam(FOnDialogueChanged, const FDialogueLine& NewDialogueLine);
-	DECLARE_MULTICAST_DELEGATE_OneParam(FOnSceneChanged, USceneDataAsset* NewScene);
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnDialogueChanged, const FDialogueLine&, NewDialogueLine);
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnSceneChanged, const USceneDataAsset*, NewScene);
 
 	FOnDialogueChanged OnDialogueChanged;
 
