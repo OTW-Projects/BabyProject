@@ -7,32 +7,47 @@
 #include "WidgetControl/WidgetController.h"
 #include "UIManager.generated.h"
 
-/**
- * 
- */
-UCLASS(Blueprintable)
+class UUserWidget;
+
+UENUM(BlueprintType)
+enum class EUIState : uint8
+{
+	Hidden,
+	MainMenu,
+	InGame,
+	Paused,
+	Loading
+};
+
+UCLASS(Blueprintable, BlueprintType)
 class OTW_BABYPROJECT_API UUIManager : public UObject
 {
 	GENERATED_BODY()
 
+private:
+
+	UPROPERTY()
+	TObjectPtr<UUserWidget> MainGameWidget;
+	
+	UPROPERTY()
+	EUIState CurrentState = EUIState::Hidden;
+	
 public:
 
-	void Init(class UNarrativeManager* InNarrativeManager);
+	UFUNCTION(BlueprintCallable)
+	void Init();
 
 	UFUNCTION(BlueprintCallable)
-	void ShowDialogueUI();
+	void ShowDialogueUI(const FString& SpeakerName, const FString& DialogueText);
 	
 	UFUNCTION(BlueprintCallable)
 	void ShowSceneTransitionUI();
 
-protected:
+private:
 
-	UPROPERTY()
-	UNarrativeManager* NarrativeManager;
-	
-	UPROPERTY()
-	UWidgetController* WidgetController;
-	
-	UPROPERTY()
-	UUserWidget* DialogueWidgetInstance;
+	void CreateMainGameWidget();
+
+	void UpdateDialogueWidget(const FString& Speaker, const FString& Text);
+
+	void UpdateBackgroundWidget(const FSoftObjectPath& BackgroundPath);
 };

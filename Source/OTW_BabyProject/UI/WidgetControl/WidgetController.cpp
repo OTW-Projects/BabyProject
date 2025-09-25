@@ -5,23 +5,39 @@
 
 #include "OTW_BabyProject/Systems/Narrative/NarrativeManager.h"
 
-void UWidgetController::Init(UNarrativeManager* InNarrativeManager)
+void UWidgetController::Init(UNarrativeManager* InNarrativeManager, UUIManager* InUIManager)
 {
-	NarrativeManager = InNarrativeManager;
-
-	if (NarrativeManager)
+	if (!InNarrativeManager || !InUIManager)
 	{
-		NarrativeManager->OnDialogueChanged.AddUObject(this, &UWidgetController::HandleDialogueChanged);
-		NarrativeManager->OnSceneChanged.AddUObject(this, &UWidgetController::HandleSceneChanged);
+		UE_LOG(LogTemp, Error, TEXT("WidgetController: Invalid managers passed to Initialize"));
+		return;
 	}
+
+	NarrativeManager = InNarrativeManager;
+	UIManager = InUIManager;
+
+	NarrativeManager->OnDialogueChanged.AddUObject(this, &UWidgetController::HandleDialogueChanged);
+	NarrativeManager->OnSceneChanged.AddUObject(this, &UWidgetController::HandleSceneChanged);
+
+	UE_LOG(LogTemp, Log, TEXT("WidgetController initialized successfully"));
 }
 
 void UWidgetController::HandleDialogueChanged(const FDialogueLine& NewLine)
 {
-	
 }
 
 void UWidgetController::HandleSceneChanged(const USceneDataAsset* NewScene)
 {
-	
+}
+
+void UWidgetController::UpdateDialogueDisplay(const FDialogueLine& DialogueLine)
+{
+}
+
+void UWidgetController::UpdateBackgroundDisplay(USceneDataAsset* Scene)
+{
+}
+
+void UWidgetController::HandleSceneTransition(USceneDataAsset* NewScene)
+{
 }
