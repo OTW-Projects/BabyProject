@@ -30,16 +30,25 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Init(UNarrativeManager* InNarrativeManager, UUIManager* InUIManager);
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void HandleDialogueChanged(const FDialogueLine& NewLine);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void HandleSceneChanged(const USceneDataAsset* NewScene);
+
+	UFUNCTION(BlueprintCallable)
+	void OnNextButtonPressed();
+
+	UFUNCTION(BlueprintCallable)
+	void ShowGameUI();
+
+	UFUNCTION(BlueprintCallable)
+	void HideGameUI();
 
 private:
 	void UpdateDialogueDisplay(const FDialogueLine& DialogueLine);
 	
-	void UpdateBackgroundDisplay(USceneDataAsset* Scene);
+	void UpdateBackgroundDisplay(const USceneDataAsset* Scene);
 	
-	void HandleSceneTransition(USceneDataAsset* NewScene);
+	void HandleSceneTransition(const USceneDataAsset* NewScene);
 };

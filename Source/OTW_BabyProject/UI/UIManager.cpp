@@ -3,6 +3,8 @@
 
 #include "UIManager.h"
 
+#include "Blueprint/UserWidget.h"
+
 void UUIManager::Init()
 {
 	CreateMainGameWidget();
@@ -19,6 +21,56 @@ void UUIManager::ShowDialogueUI(const FString& SpeakerName, const FString& Dialo
 	}
 
 	UpdateDialogueWidget(SpeakerName, DialogueText);
+
+	BP_OnDialogueChanged(SpeakerName, DialogueText);
+
+	UE_LOG(LogTemp, Log, TEXT("Showing dialogue - %s: %s"), *SpeakerName, *DialogueText);
+}
+
+void UUIManager::SetBackground(const FSoftObjectPath& BackgroundImagePath)
+{
+	UpdateBackgroundWidget(BackgroundImagePath);
+
+	BP_OnBackgroundChanged(BackgroundImagePath);
+
+	UE_LOG(LogTemp, Log, TEXT("Setting background - %s"), *BackgroundImagePath.ToString());
+}
+
+void UUIManager::ShowGameUI()
+{
+	if (MainGameWidget)
+	{
+		MainGameWidget->AddToViewport();
+		SetUIState(EUIState::InGame);
+		UE_LOG(LogTemp, Log, TEXT("Game UI shown"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("UIManager: MainGameWidget is null, cannot show game UI"));
+	}
+}
+
+void UUIManager::HideGameUI()
+{
+	if (MainGameWidget)
+	{
+		MainGameWidget->RemoveFromParent();
+		SetUIState(EUIState::Hidden);
+		UE_LOG(LogTemp, Log, TEXT("Game UI hidden"));
+	}
+}
+
+void UUIManager::SetUIState(EUIState NewState)
+{
+	if (CurrentState != NewState)
+	{
+		EUIState OldState = CurrentState;
+		CurrentState = NewState;
+
+		BP_OnUIStateChanged(NewState);
+
+		UE_LOG(LogTemp, Log, TEXT("UI state changed from %d to %d"), (int32)OldState, (int32)NewState);
+	}
 }
 
 void UUIManager::ShowSceneTransitionUI()
@@ -37,4 +89,5 @@ void UUIManager::UpdateDialogueWidget(const FString& Speaker, const FString& Tex
 
 void UUIManager::UpdateBackgroundWidget(const FSoftObjectPath& BackgroundPath)
 {
+	
 }

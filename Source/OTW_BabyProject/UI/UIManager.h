@@ -39,9 +39,30 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ShowDialogueUI(const FString& SpeakerName, const FString& DialogueText);
+
+	UFUNCTION(BlueprintCallable)
+	void SetBackground(const FSoftObjectPath& BackgroundImagePath);
+
+	UFUNCTION(BlueprintCallable)
+	void ShowGameUI();
+
+	UFUNCTION(BlueprintCallable)
+	void HideGameUI();
+
+	UFUNCTION(BlueprintCallable)
+	void SetUIState(EUIState NewState);
 	
 	UFUNCTION(BlueprintCallable)
 	void ShowSceneTransitionUI();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnDialogueChanged(const FString& Speaker, const FString& Text);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnBackgroundChanged(const FSoftObjectPath& BackgroundImagePath);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnUIStateChanged(EUIState NewState);
 
 private:
 
