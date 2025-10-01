@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameData.h"
-#include "DialogDataAsset.generated.h"
+#include "DialogueDataAsset.generated.h"
 
 USTRUCT(BlueprintType)
 struct FDialogueLine
@@ -19,7 +19,7 @@ struct FDialogueLine
 };
 
 UCLASS(BlueprintType)
-class OTW_BABYPROJECT_API UDialogDataAsset : public UGameData
+class OTW_BABYPROJECT_API UDialogueDataAsset : public UGameData
 {
 	GENERATED_BODY()
 
@@ -28,10 +28,10 @@ public:
 
 private:
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Dialog Data", meta = (AllowPrivateAccess = "true"))
-	TArray<FDialogueLine> DialogLines;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Dialogue Data", meta = (AllowPrivateAccess = "true"))
+	TArray<FDialogueLine> DialogueLines;
 
 public:
 	
-	[[nodiscard]] TArray<FDialogueLine> GetDialogLines() const;
+	[[nodiscard]] TArray<FDialogueLine> GetDialogueLines() const;
 };

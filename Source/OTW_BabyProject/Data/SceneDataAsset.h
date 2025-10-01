@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DialogDataAsset.h"
+#include "DialogueDataAsset.h"
 #include "GameData.h"
 #include "SceneDataAsset.generated.h"
 

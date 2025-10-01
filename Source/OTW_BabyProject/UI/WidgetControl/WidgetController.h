@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "OTW_BabyProject/Data/DialogDataAsset.h"
+#include "OTW_BabyProject/Data/DialogueDataAsset.h"
 #include "OTW_BabyProject/Data/SceneDataAsset.h"
 #include "UObject/Object.h"
 #include "WidgetController.generated.h"
