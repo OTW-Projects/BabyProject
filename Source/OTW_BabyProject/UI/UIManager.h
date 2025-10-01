@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
+#include "Blueprint/UserWidget.h"
 #include "WidgetControl/WidgetController.h"
 #include "UIManager.generated.h"
 
