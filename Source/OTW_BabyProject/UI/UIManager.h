@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
 #include "Blueprint/UserWidget.h"
-#include "WidgetControl/WidgetController.h"
 #include "UIManager.generated.h"
 
+class APlayerController;
 class UUserWidget;
 
 UENUM(BlueprintType)
@@ -27,7 +27,7 @@ class OTW_BABYPROJECT_API UUIManager : public UObject
 
 private:
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UUserWidget> MainGameWidget;
 	
 	UPROPERTY()
@@ -36,7 +36,7 @@ private:
 public:
 
 	UFUNCTION(BlueprintCallable)
-	void Init();
+	void Initialize(TSubclassOf<UUserWidget> InWidgetClass, APlayerController* OwnerController);
 
 	UFUNCTION(BlueprintCallable)
 	void ShowDialogueUI(const FString& SpeakerName, const FString& DialogueText);
@@ -67,7 +67,7 @@ public:
 
 private:
 
-	void CreateMainGameWidget();
+	void CreateMainGameWidget(TSubclassOf<UUserWidget> WidgetClass, APlayerController* OwnerController);
 
 	void UpdateDialogueWidget(const FString& Speaker, const FString& Text);
 

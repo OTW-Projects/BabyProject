@@ -2,12 +2,23 @@
 
 
 #include "UIManager.h"
-
 #include "Blueprint/UserWidget.h"
 
-void UUIManager::Init()
+void UUIManager::Initialize(TSubclassOf<UUserWidget> InWidgetClass, APlayerController* OwnerController)
 {
-	CreateMainGameWidget();
+	if (!OwnerController)
+	{
+		UE_LOG(LogTemp, Error, TEXT("UIManager: Cannot initialize without a valid player controller"));
+		return;
+	}
+
+	if (!InWidgetClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("UIManager: WidgetClass is null, cannot initialize"));
+		return;
+	}
+	
+	CreateMainGameWidget(InWidgetClass, OwnerController);
 	
 	UE_LOG(LogTemp, Log, TEXT("UIManager initialized successfully"));
 }
@@ -77,9 +88,26 @@ void UUIManager::ShowSceneTransitionUI()
 {
 }
 
-void UUIManager::CreateMainGameWidget()
+void UUIManager::CreateMainGameWidget(TSubclassOf<UUserWidget> WidgetClass, APlayerController* OwnerController)
 {
-	UE_LOG(LogTemp, Log, TEXT("CreateMainGameWidget called - implement widget blueprint loading here"));
+	if (!WidgetClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("UIManager: WidgetClass is null, cannot create main game widget"));
+		return;
+	}
+
+	MainGameWidget = CreateWidget<UUserWidget>(OwnerController, WidgetClass);
+    
+	if (MainGameWidget)
+	{
+		MainGameWidget->AddToViewport();
+		SetUIState(EUIState::InGame);
+		UE_LOG(LogTemp, Log, TEXT("Main game widget created and added to viewport"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("UIManager: Failed to create main game widget"));
+	}
 }
 
 void UUIManager::UpdateDialogueWidget(const FString& Speaker, const FString& Text)
